@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Titles from "./components/Titles";
 import LocationForm from "./components/LocationForm";
 import Weather from "./components/Weather";
+import FiveDayContainer from './containers/FiveDayContainer'
 import "./App.css";
 
 class App extends Component {
@@ -16,7 +17,8 @@ class App extends Component {
 
   getWeather = async e => {
     e.preventDefault();
-    const API_URL = "api.openweathermap.org/data/2.5/weather?q={washington}";
+
+    // const API_URL = "api.openweathermap.org/data/2.5/weather?q={washington}";
     const city = e.target.city.value;
     const country = e.target.country.value;
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
@@ -56,6 +58,8 @@ class App extends Component {
           country={this.state.country}
           error={this.state.error}
         />
+        5 Day Forecast:
+        <FiveDayContainer />
       </div>
     );
   }
