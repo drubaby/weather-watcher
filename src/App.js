@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Titles from "./components/Titles";
 import LocationForm from "./components/LocationForm";
 import Weather from "./components/Weather";
-import FiveDayContainer from './containers/FiveDayContainer'
+import FiveDayContainer from "./containers/FiveDayContainer";
+// import DailyWeatherCard from "./components/DailyWeatherCard"
 import "./App.css";
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
     description: undefined,
     city: undefined,
     country: undefined,
+    loading: true,
     error: undefined
   };
 
@@ -19,30 +21,39 @@ class App extends Component {
     e.preventDefault();
 
     // const API_URL = "api.openweathermap.org/data/2.5/weather?q={washington}";
-    const city = e.target.city.value;
-    const country = e.target.country.value;
+    // const city = e.target.city.value;
+    const city = "Detroit";
+    // const country = e.target.country.value;
+    const country = "US";
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
     const temp_api_call = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=imperial&appid=${API_KEY}`
+      `http://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&units=imperial&appid=${API_KEY}`
     );
     const response = await temp_api_call.json();
 
     if (city && country) {
       this.setState({
-        temperature: response.main.temp,
-        humidity: response.main.humidity,
-        description: response.weather[0].description,
-        city: response.name,
-        country: response.sys.country,
+        temperature: response.list[0].main.temp,
+        humidity: response.list[0].main.humidity,
+        description: response.list[0].weather[0].description,
+        city: response.city.name,
+        country: response.city.country,
+        day0: response.list[0],
+        day1: response.list[1],
+        day2: response.list[2],
+        day3: response.list[3],
+        day4: response.list[4],
+        loading: false,
         error: ""
       });
     } else {
       this.setState({
-        error: "Please enter both City and Country code"
+        error: "Please enter both City and Country code",
+        loading: true
       });
     }
 
-    console.log(response);
+    console.log("5 day weather call: ", response);
   };
 
   render() {
@@ -58,11 +69,27 @@ class App extends Component {
           country={this.state.country}
           error={this.state.error}
         />
-        5 Day Forecast:
-        <FiveDayContainer />
+        <FiveDayContainer
+          loading={this.state.loading}
+          day0={this.state.day0}
+          day1={this.state.day1}
+          day2={this.state.day2}
+          day3={this.state.day3}
+          day4={this.state.day4}
+        />
       </div>
     );
   }
 }
+
+// <DailyWeatherCard
+//   temperature={this.state.temperature}
+//   humidity={this.state.humidity}
+//   description={this.state.description}
+//   city={this.state.city}
+//   country={this.state.country}
+//   error={this.state.error}
+// />
+
 // Prettier: Opt+Ctrl+F
 export default App;
