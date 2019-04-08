@@ -6,7 +6,7 @@ class FiveDayContainer extends React.Component {
   render() {
     // debugger
     if (this.props.loading === true) {
-      console.log('5daycontainer undefined')
+      // console.log('5daycontainer undefined')
       return(<div />)
     }
 

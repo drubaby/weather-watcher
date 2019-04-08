@@ -12,21 +12,25 @@ import cloudy from '../images/cloudy.png'
 // weather: [{…}]
 // wind: {speed: 7.63, deg: 136.001}
 
-const DailyWeatherCard = props => {
-  console.log('DailyWeatherCard props ', props.weather)
 
+const DailyWeatherCard = props => {
+  // console.log('DailyWeatherCard props ', props.weather)
   if (!props.weather) {
     return null
   }
+  // console.log(new Date(props.weather.dt))
+  const date = new Date(props.weather.dt)
+  const displayDate = date.toLocaleDateString("en-GB", {day: 'numeric', month: 'short'})
 
+  // debugger
+  // console.log(date)
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Title>{props.weather.dt_txt}</Card.Title>
+      <Card.Title>{displayDate}</Card.Title>
       <Card.Img src={cloudy} />
       <Card.Body>
-        {<p>Conditions: {props.weather.weather[0].description}</p>}
         {<p>Temp {props.weather.main.temp}</p>}
-        {props.error && <p>{props.error}</p>}
+        {<p>Conditions: {props.weather.weather[0].description}</p>}
       </Card.Body>
     </Card>
   );

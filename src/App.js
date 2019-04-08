@@ -21,15 +21,20 @@ class App extends Component {
     e.preventDefault();
 
     // const API_URL = "api.openweathermap.org/data/2.5/weather?q={washington}";
+
     // const city = e.target.city.value;
     const city = "Detroit";
     // const country = e.target.country.value;
     const country = "US";
+    const cnt = 5
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
+
     const temp_api_call = await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&units=imperial&appid=${API_KEY}`
+      `http://api.openweathermap.org/data/2.5/forecast/daily?q=${city},${country}&cnt=${cnt}`
     );
     const response = await temp_api_call.json();
+
+    // debugger
 
     if (city && country) {
       this.setState({
