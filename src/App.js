@@ -28,6 +28,9 @@ class App extends Component {
     const country = "US";
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
 
+    const current_conditions_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}&units=imperial`)
+    const current_conditions_response = await current_conditions_call.json()
+
     const temp_api_call = await fetch(
       `http://api.openweathermap.org/data/2.5/forecast/?q=${city},${country}&APPID=${API_KEY}&units=imperial`
     );
@@ -90,11 +93,12 @@ class App extends Component {
 
     if (city && country) {
       this.setState({
-        temperature: response.list[0].main.temp,
-        humidity: response.list[0].main.humidity,
-        description: response.list[0].weather[0].description,
-        city: response.city.name,
-        country: response.city.country,
+        temperature: current_conditions_response.main.temp,
+        humidity: current_conditions_response.main.humidity,
+        description: current_conditions_response.weather[0].description,
+        city: current_conditions_response.name,
+        country: current_conditions_response.sys.country,
+        current_date: current_conditions_response.dt,
         day0: response.list[0],
         day1: response.list[1],
         day2: response.list[2],
@@ -119,6 +123,7 @@ class App extends Component {
         <Titles className="App-header" />
         <LocationForm loadWeather={this.getWeather} />
         <Weather
+          date={this.state.current_date}
           temperature={this.state.temperature}
           humidity={this.state.humidity}
           description={this.state.description}
