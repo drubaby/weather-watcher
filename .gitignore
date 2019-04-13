@@ -4,7 +4,7 @@
 .env
 
 # Images no longer needed to be stored locally
-./images
+src/images
 
 # dependencies
 /node_modules
