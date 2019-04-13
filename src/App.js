@@ -28,8 +28,10 @@ class App extends Component {
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
 
     // for Weather.js -- current conditions
-    const current_conditions_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}&units=imperial`)
-    const current_conditions_response = await current_conditions_call.json()
+    const current_conditions_call = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}&units=imperial`
+    );
+    const current_conditions_response = await current_conditions_call.json();
 
     const temp_api_call = await fetch(
       `http://api.openweathermap.org/data/2.5/forecast/?q=${city},${country}&APPID=${API_KEY}&units=imperial`
@@ -38,7 +40,6 @@ class App extends Component {
     const response = await temp_api_call.json();
 
     const list_obj = response.list;
-    // console.log("list_obj: ", list_obj);
 
     // Problem: response includes array of 40 forecast objects in .list
     // response.list[0] is current conditions
@@ -59,9 +60,7 @@ class App extends Component {
     // newObj.getDate()
     // 8
     const today_date_obj = new Date(list_obj[0].dt_txt);
-    console.log('today date obj: ', today_date_obj)
     const today_date_num = today_date_obj.getDate();
-    console.log('today date num: ', today_date_num)
 
     let day0_forecasts = [];
     let day1_forecasts = [];
@@ -70,29 +69,25 @@ class App extends Component {
     let day4_forecasts = [];
 
     for (const forecast of list_obj) {
-      // debugger
       const day_obj = new Date(forecast.dt_txt);
-      // console.log('day_obj ', day_obj)
-      const forecast_date = day_obj.getDate()
-      console.log("For Of loop forecast_date: ", forecast_date);
-      // console.log('today_date_num === ')
+
+      const forecast_date = day_obj.getDate();
+
       if (forecast_date === today_date_num) {
         day0_forecasts.push(forecast);
-        console.log('forecast_date ', forecast_date)
       } else if (forecast_date === today_date_num + 1) {
-        day1_forecasts.push(forecast)
-        console.log('forecast_date ', forecast_date)
+        day1_forecasts.push(forecast);
       } else if (forecast_date === today_date_num + 2) {
-        day2_forecasts.push(forecast)
+        day2_forecasts.push(forecast);
       } else if (forecast_date === today_date_num + 3) {
-        day3_forecasts.push(forecast)
+        day3_forecasts.push(forecast);
       } else if (forecast_date === today_date_num + 4) {
-        day4_forecasts.push(forecast)
+        day4_forecasts.push(forecast);
       }
     }
-    console.log("day0 forecasts: ", day0_forecasts);
-    console.log("day1 forecasts: ", day1_forecasts);
-    console.log("day2 forecasts: ", day2_forecasts);
+    // console.log("day0 forecasts: ", day0_forecasts);
+    // console.log("day1 forecasts: ", day1_forecasts);
+    // console.log("day2 forecasts: ", day2_forecasts);
     // console.log("day3 forecasts: ", day3_forecasts);
     // console.log("day4 forecasts: ", day4_forecasts);
 
@@ -118,12 +113,9 @@ class App extends Component {
         loading: true
       });
     }
-
-    // console.log("5 day weather call: ", response);
   };
 
   render() {
-
     return (
       <div className="App">
         <Titles className="App-header" />
