@@ -3,6 +3,15 @@ import CardDeck from "react-bootstrap/CardDeck";
 import DailyWeatherCard from '../components/DailyWeatherCard'
 
 class FiveDayContainer extends React.Component {
+
+  // loop through array of forecast objects
+  // find average temp
+  // find highest temp
+  // find lowest temp
+  // find average conditions
+
+
+
   render() {
     // debugger
     if (this.props.loading === true) {

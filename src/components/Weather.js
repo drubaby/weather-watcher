@@ -7,6 +7,8 @@ const Weather = (props) => {
   const displayDate = date.toLocaleDateString("en-US", {weekday: 'long', month: 'long', day: 'numeric'})
 
 
+
+
   return(
     <div>
       {props.city && <h2>Current Conditions</h2>}
