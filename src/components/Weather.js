@@ -14,7 +14,7 @@ const Weather = (props) => {
       {props.city && <h2>Current Conditions</h2>}
       {props.date && <p>{displayDate}</p>}
       {props.country && props.city && <p>{props.city},    {props.country}</p>}
-      {props.temperature && <p>Temperature: {props.temperature}F</p>}
+      {props.temperature && <p>Temperature: {props.temperature}°F</p>}
       {props.humidity && <p>Humidity: {props.humidity}%</p>}
       {props.description && <p>Conditions:  {props.description}</p>}
       {props.error && <p>{props.error}</p>}

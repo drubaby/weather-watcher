@@ -1,12 +1,20 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const LocationForm = props => {
   return (
-    <form onSubmit={props.loadWeather}>
-      <input type="text" name="city" placeholder="City..." />
-      <input type="text" name="country" placeholder="Country..." />
-      <button type='submit'>Load Weather</button>
-    </form>
+    <Form onSubmit={props.loadWeather}>
+      <Form.Group>
+      <Form.Label>City</Form.Label>
+      <Form.Control type="text" placeholder="City..." />
+      <Form.Label>Country</Form.Label>
+      <Form.Control type="text" placeholder="Country"/>
+        <Button variant="secondary" type="submit">
+          Load Weather{" "}
+        </Button>
+      </Form.Group>
+    </Form>
   );
 };
 export default LocationForm;

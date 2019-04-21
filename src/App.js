@@ -22,7 +22,7 @@ class App extends Component {
 
     // Hard code city & country call for ease of testing
     // const city = e.target.city.value;
-    const city = "Asheville";
+    const city = "Traverse City";
     // const country = e.target.country.value;
     const country = "US";
     const API_KEY = `${process.env.REACT_APP_OPEN_WEATHER_MAP_APP_API_KEY}`;
